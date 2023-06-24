@@ -36,7 +36,7 @@ while i <= 120:
     resultado.append([i, h])
 
 # Número de pontos para a animação
-nPontosf = 100
+nPontosf = 10
 numPontos_animacao = range(1, nPontosf)  # Varie esse intervalo conforme necessário
 
 # Função para atualizar o gráfico a cada quadro da animação
@@ -57,12 +57,13 @@ def update(frame):
     plt.title(f"Altura do líquido X Tempo [{nPontosf} pontos]")
     plt.xlabel("t [s]")
     plt.ylabel("h(t) [ft]")
+    plt.grid()
 
 # Criação da animação
 fig = plt.figure(figsize=(12, 8))
-animation = FuncAnimation(fig, update, frames=numPontos_animacao, interval=250, repeat=True)
+animation = FuncAnimation(fig, update, frames=numPontos_animacao, interval=500, repeat=True)
 
-animation.save(f'animação{nPontosf}pontos.gif', writer='imagemagick')
+animation.save(f'animação{nPontosf}pontos.gif')
 
 plt.show()
 
