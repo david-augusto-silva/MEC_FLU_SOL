@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from matplotlib.widgets import Button, Slider
 """
 dados do problema
 g = 32.2  # aceleração da gravidade (ft/s²)
@@ -34,16 +35,9 @@ while i <= 120:
     i += deltaT
     resultado.append([i, h])
 
-plt.figure(figsize=(12, 8))
-for i in range(len(resultado)):
-    plt.plot(resultado[i][0], resultado[i][1], 'bo--', label='Aproximado')
-plt.title("Altura do líquido X Tempo")
-plt.xlabel("t [s]")
-plt.ylabel("h(t) [ft]")
-plt.show()
-
 # Número de pontos para a animação
-numPontos_animacao = range(1, 10)  # Varie esse intervalo conforme necessário
+nPontosf = 100
+numPontos_animacao = range(1, nPontosf)  # Varie esse intervalo conforme necessário
 
 # Função para atualizar o gráfico a cada quadro da animação
 def update(frame):
@@ -60,13 +54,16 @@ def update(frame):
     plt.cla()  # Limpar o eixo atual
     for i in range(len(resultado)):
         plt.plot(resultado[i][0], resultado[i][1], 'bo--', label='Aproximado')
-    plt.title("Altura do líquido X Tempo")
+    plt.title(f"Altura do líquido X Tempo [{nPontosf} pontos]")
     plt.xlabel("t [s]")
     plt.ylabel("h(t) [ft]")
 
 # Criação da animação
 fig = plt.figure(figsize=(12, 8))
-animation = FuncAnimation(fig, update, frames=numPontos_animacao, interval=1000, repeat=True)
+animation = FuncAnimation(fig, update, frames=numPontos_animacao, interval=250, repeat=True)
+
+animation.save(f'animação{nPontosf}pontos.gif', writer='imagemagick')
 
 plt.show()
+
 
